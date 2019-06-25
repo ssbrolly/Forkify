@@ -1,4 +1,63 @@
+import Search from './models/Search';
 
-import num from './test';
-const x = 123344;
-console.log(`I imported ${num} from another module! and I'm console.loging ${x} as well`)
+
+/* Global State
+* - Search Object
+* - Current Recipe Object
+* - Shopping List Object
+* - Liked Recipes
+*/
+
+const state = {};
+
+const controlSearch = async () => {
+    // Get query from view
+    const query = 'pizza';
+
+    if(query) {
+        state.search = new Search(query);
+        await state.search.getResults();
+        console.log(state.search.results);
+    }
+
+}
+
+document.querySelector('.search').addEventListener('submit', e => {
+    e.preventDefault();
+    controlSearch();
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
