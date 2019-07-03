@@ -16,14 +16,20 @@ const controlSearch = async () => {
     // Get query from view
     const query = searchViews.getInput();
 
-    if(query) {
+    if (query) {
         state.search = new Search(query);
         searchViews.clearInput();
         searchViews.clearResults();
         renderLoader(elements.searchRes);
-        clearLoader();
-        await state.search.getResults();
-        searchViews.renderResults(state.search.results);
+
+        try {
+            await state.search.getResults();
+            clearLoader();
+            searchViews.renderResults(state.search.results);
+        } catch (err) {
+            alert('Error');
+            clearLoader();
+        }
     }
 };
 
@@ -41,20 +47,24 @@ elements.searchResPages.addEventListener('click', e => {
     }
 });
 
-const r = new Recipe(47746);
-r.getRecipe();
-console.log(r);
+const controlRecipe = async () => {
+    const id = window.location.hash.replace('#', '');
 
+    if (id) {
+        state.recipe = new Recipe(id);
 
+        try {
+            await state.recipe.getRecipe();
+            state.recipe.calcServing();
+            // console.log(state.recipe);
+        } catch (error) {
+            alert(error);
+        }
+            
+    }
+}
 
-
-
-
-
-
-
-
-
+['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
 
 
