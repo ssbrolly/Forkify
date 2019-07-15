@@ -60,6 +60,7 @@ export default class Recipe {
                 }
 
                 objIng = {
+                    
                     count,
                     unit: arrIng[unitIndex],
                     ingredient: arrIng.slice(unitIndex + 1).join(' '),
