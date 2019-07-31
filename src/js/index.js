@@ -71,21 +71,40 @@
 
 
 
-import axios from 'axios';
 
-async function getResults(query) {
-    const key = 'blahblahblah';
-    const res = await axios('http//blahblah')
+
+
+
+import Search from './models/Search';
+import { elements } from  './views/base';
+import * as searchView from './views/searchView'; 
+
+//Global state of the app
+const state = {};
+
+const controlSearch = async () => {
+    //1) get the query
+    const query = searchView.getInput();
+    console.log(query);
+
+    if (query) {
+        state.search = new Search(query);
+        await state.search.getResults();
+        searchView.clearInput();
+        searchView.clearResults();
+        searchView.renderResults(state.search.result);
+        console.log(state.search.result);
+    }
 }
 
-getResults();
+elements.searchForm.addEventListener('submit', e => {
+    e.preventDefault();
+    controlSearch();
+})
 
-
-
-
-
-
-
+// const pizza = new Search('pizza');
+// console.log(pizza);
+// pizza.getResults();
 
 
 
