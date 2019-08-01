@@ -76,7 +76,7 @@
 
 
 import Search from './models/Search';
-import { elements } from  './views/base';
+import { elements, renderLoader, clearLoader } from  './views/base';
 import * as searchView from './views/searchView'; 
 
 //Global state of the app
@@ -89,22 +89,28 @@ const controlSearch = async () => {
 
     if (query) {
         state.search = new Search(query);
-        await state.search.getResults();
+        renderLoader(elements.searchRes); 
         searchView.clearInput();
         searchView.clearResults();
+        await state.search.getResults();
+        clearLoader();
         searchView.renderResults(state.search.result);
-        console.log(state.search.result);
     }
 }
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
     controlSearch();
-})
+});
 
-// const pizza = new Search('pizza');
-// console.log(pizza);
-// pizza.getResults();
+elements.searchResPages.addEventListener('click', e => {
+    const btn = e.target.closest('.btn-inline');
+    if (btn) {
+        const goToPage = parseInt(btn.dataset.goto, 10);
+        searchView.clearResults();
+        searchView.renderResults(state.search.result, goToPage);
+    };
+});
 
 
 
