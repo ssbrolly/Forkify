@@ -222,12 +222,3 @@ export const renderResults = (recipes, page = 1, resPerPage = 10) => {
 
 
 
-
-
-
-
-
-
-
-
-
