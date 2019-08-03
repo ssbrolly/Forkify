@@ -1,29 +1,3 @@
-// import Axios from "axios";
-
-// import axios from 'axios';
-// import { key, proxy } from '../config';
-
-
-// export default class Search {
-//     constructor(query) {
-//         this.query = query;
-//     }
-
-//     async getResults() {
-//         try {
-//             const res = await axios(`${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`);
-//             this.results = res.data.recipes;
-//         } catch (error) {
-//             alert(error);
-//         }
-//     }
-// }
-
-
-
-
-
-
 
 import axios from 'axios';
 import { key, proxy } from '../config';
@@ -35,15 +9,20 @@ export default class Search {
     }
 
     async getResults() {
-        try {   
-            const res = await axios(`${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`)
-            this.result = res.data.recipes;
-            // console.log(this.result);
-        } catch(error) {
+        try {
+            const res = await axios(`${proxy}https://www.food2fork.com/api/search?key=${key}&q=${this.query}`);
+            this.results = res.data.recipes;
+        } catch (error) {
             alert(error);
         }
     }
-};
+}
+
+
+
+
+
+
 
 
 
