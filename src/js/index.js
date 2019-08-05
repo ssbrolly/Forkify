@@ -75,10 +75,19 @@ const controlRecipe = async () => {
 
 
 
+const controlSearch = async () => {
+    const id = window.location.hash.replace('#', ' ');
+
+    if (id) {
+        state.recipe = new Recipe(id);
+        await state.recipe.getResults();
+        state.recipe.calcServing();
+        state.recipe.calcTiming()
+    }
+}
 
 
-
-
+window.addEventListener('hashchange', controlSearch);
 
 
 
