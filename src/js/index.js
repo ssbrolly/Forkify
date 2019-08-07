@@ -38,6 +38,7 @@ elements.searchForm.addEventListener('submit', e => {
     controlSearch();
 });
 
+
 elements.searchResPages.addEventListener('click', e => {
     const btn = e.target.closest('.btn-inline');
     if (btn) {
@@ -55,41 +56,16 @@ const controlRecipe = async () => {
 
         try {
             await state.recipe.getRecipe();
+            state.recipe.parseIngredients();
             state.recipe.calcServing();
-            // console.log(state.recipe);
+            console.log(state.recipe);
         } catch (error) {
             alert(error);
-        }
-            
+        }      
     }
-}
+};
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
-
-
-
-
-
-
-
-
-
-
-const controlSearch = async () => {
-    const id = window.location.hash.replace('#', ' ');
-
-    if (id) {
-        state.recipe = new Recipe(id);
-        await state.recipe.getResults();
-        state.recipe.calcServing();
-        state.recipe.calcTiming()
-    }
-}
-
-
-window.addEventListener('hashchange', controlSearch);
-
-
 
 
 
