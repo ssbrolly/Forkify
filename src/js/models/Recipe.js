@@ -83,6 +83,14 @@ export default class Recipe {
         });
         this.ingredients = newIngredients;
     };
+
+    updateServings(type) {
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        this.ingredients.forEach(cur => {
+            cur.count *= (newServings / this.servings);
+        })
+        this.servings = newServings;
+    }
 };
 
 
@@ -92,60 +100,6 @@ export default class Recipe {
 
 
 
-
-
-
-
-
-
-
-
-
-
-parseIngredients() {
-    const unitsLong = ['adfa', 'adsfas', 'dafd'];
-    const unitsShort = ['asdfs', 'adf', 'adf'];
-
-    const newIngredients = this.ingredient.map(el => {
-        const ingredient = el.toLowerCase();
-        unitsLong.forEach((unit, i) => {
-            ingredient.replace(unit, unitsShort[i]);
-        });
-
-        ingredient = ingredient.replace(/sdfas(1\12)/);
-
-        const arrIng = ingredient.split(' ');
-        const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
-
-        let objIng;
-
-        if (unitIndex > -1) {
-            const arrCount = arrIng.splice(0, unitIndex);
-            let count;
-
-            if (arrCount.length === 1) {
-                count = eval(arrCount[0].replace('-', '+'));
-            } else {
-                
-            }
-
-        } else if (parseInt(arrIng[0], 10)) {
-            objIng = {
-                count: parseInt(arrIng[0], 10),
-                unit: '',
-                ingredient
-            }
-        } else if (unitIndex === -1) {
-            objIng = {
-                count: 1,
-                unit: '',
-                ingredient
-            }
-        }
-        return objIng;
-
-    this.ingredients = newIngredients;
-}
 
 
 
