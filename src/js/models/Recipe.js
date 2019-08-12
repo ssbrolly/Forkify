@@ -90,7 +90,48 @@ export default class Recipe {
             cur.count *= (newServings / this.servings);
         })
         this.servings = newServings;
-    }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 
 
