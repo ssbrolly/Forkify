@@ -1,7 +1,8 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
+import List from './models/List';
 import * as searchViews from './views/searchView'
 import * as recipeViews from './views/recipeView'
-import Recipe from './models/Recipe';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /* Global State
@@ -99,8 +100,17 @@ elements.recipe.addEventListener('click', e => {
         recipeViews.updateServingsIngredients(state.recipe);
 
     }
-    console.log(state.recipe);
 });
+
+
+
+
+
+window.l = new List();
+
+
+
+
 
 
 
