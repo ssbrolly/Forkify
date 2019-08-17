@@ -105,7 +105,7 @@ const controlList = () => {
     // Add each ingredient to the list.
     state.recipe.ingredients.forEach(el => {
         const item = state.list.addItem(el.count, el.unit, el.ingredient);
-        listViews.renderItem(item);
+            listViews.renderItem(item);
     });
 };
 
@@ -122,39 +122,9 @@ elements.shopping.addEventListener('click', e => {
     } else if (e.target.matches('.shopping__count-value')) {
         const val = parseFloat(e.target.value, 10);
         if (val > 0) state.list.updateCount(id, val);
+        
     };
 });
-
-
-
-
-
-elements.shopping.addEventListener('click', e => {
-    const id = e.target.closest('.shopping__item').dataset.itemid;
-
-    if (e.target.matches('.shopping__delete, .shopping__delete *')) {
-        state.list.deleteItem(id);
-        listViews.deleteItem(id);
-    } else if (e.target.matches('.shopping__count *')) {
-        const val = parseInt(e.target.value);
-        if (val > 0) state.list.updateCount(id, val);
-    }
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {

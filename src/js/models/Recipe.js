@@ -57,7 +57,7 @@ export default class Recipe {
                     count = eval(arrIng[0].replace('-', '+'));
                 } else {
                     count = eval(arrIng.slice(0, unitIndex).join('+'))
-                }
+                };
 
                 objIng = {
                     count,
@@ -66,12 +66,14 @@ export default class Recipe {
                 }
 
             } else if (parseInt(arrIng[0], 10)) {
+            
                 objIng = {
                     count: parseInt(arrIng[0], 10),
                     unit: '',
                     ingredient: arrIng.slice(1).join(' '),
                 }
             } else if (unitIndex === -1) {
+
                 objIng = {
                     count: 1,
                     unit: '',
