@@ -1,10 +1,12 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchViews from './views/searchView';
 import * as recipeViews from './views/recipeView';
 import * as listViews from './views/listView';
 import { elements, renderLoader, clearLoader } from './views/base';
+import { stat } from 'fs';
 
 /* Global State
 * - Search Object
@@ -126,10 +128,45 @@ elements.shopping.addEventListener('click', e => {
     };
 });
 
+
+/**
+ * LIKE CONTROLLER
+ */
+
+ const controlLike = () => {
+    if (!state.likes) state.likes = new Likes();
+    const currentId = state.recipe.id;
+
+    //Current recipe is not liked yet.
+    if (!state.likes.isLiked(currentId)) {
+        // Add like to the state
+        const newLike = state.likes.addLike(
+            currentId,
+            state.recipe.title,
+            state.recipe.author,
+            state.recipe.img,
+        );
+
+        // Toggle the like button
+
+        // Add to UI list
+        console.log(state.likes);
+
+    } else {
+        // Current recipe is already liked.
+        // Remove like from the state
+        state.likes.deleteLike(currentId);
+        // Toggle the like button
+        
+        // Remove from the UI list
+        console.log(state.likes);
+    }
+};
+
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
 
-    // Decrease button is cliked
+    // Decrease button is clicked
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');
@@ -142,7 +179,11 @@ elements.recipe.addEventListener('click', e => {
         recipeViews.updateServingsIngredients(state.recipe);
 
     } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add ingredients to shopping list
         controlList();
+    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        //Like controller
+        controlLike();
     }
 });
 
