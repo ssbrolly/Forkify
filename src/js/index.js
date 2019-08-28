@@ -6,7 +6,6 @@ import * as searchViews from './views/searchView';
 import * as recipeViews from './views/recipeView';
 import * as listViews from './views/listView';
 import { elements, renderLoader, clearLoader } from './views/base';
-import { stat } from 'fs';
 
 /* Global State
 * - Search Object
