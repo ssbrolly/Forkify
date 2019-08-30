@@ -5,6 +5,7 @@ import Likes from './models/Likes';
 import * as searchViews from './views/searchView';
 import * as recipeViews from './views/recipeView';
 import * as listViews from './views/listView';
+import * as likesViews from './views/likesView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /* Global State
@@ -86,7 +87,7 @@ const controlRecipe = async () => {
 
            //Render recipe
             clearLoader();
-            recipeViews.renderRecipe(state.recipe);
+            recipeViews.renderRecipe(state.recipe, state.likes.isLiked(id));
 
         } catch (error) {
             alert(error);
@@ -127,10 +128,14 @@ elements.shopping.addEventListener('click', e => {
     };
 });
 
-
 /**
  * LIKE CONTROLLER
  */
+
+// TESTING
+state.likes = new Likes();
+likesViews.toggleLikeMenu(state.likes.getNumLikes());
+
 
  const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
@@ -147,24 +152,27 @@ elements.shopping.addEventListener('click', e => {
         );
 
         // Toggle the like button
+            likesViews.toggleLikeBtn(true);
+            // Add to UI list
+            console.log(state.likes);
+            
+        } else {
+            // Current recipe is already liked.
 
-        // Add to UI list
-        console.log(state.likes);
-
-    } else {
-        // Current recipe is already liked.
-        // Remove like from the state
-        state.likes.deleteLike(currentId);
-        // Toggle the like button
+            // Remove like from the state
+            state.likes.deleteLike(currentId);
+            // Toggle the like button
+            likesViews.toggleLikeBtn(false);
         
-        // Remove from the UI list
-        console.log(state.likes);
-    }
+            // Remove from the UI list
+            console.log(state.likes);
+    };
+    likesViews.toggleLikeMenu(state.likes.getNumLikes());
 };
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
-
+    
     // Decrease button is clicked
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         if (state.recipe.servings > 1) {
@@ -185,6 +193,15 @@ elements.recipe.addEventListener('click', e => {
         controlLike();
     }
 });
+
+
+
+
+
+
+
+
+
 
 
 
