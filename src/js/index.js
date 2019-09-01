@@ -91,8 +91,8 @@ const controlRecipe = async () => {
 
         } catch (error) {
             alert(error);
-        }      
-    }
+        };      
+    };
 };
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
@@ -187,7 +187,7 @@ elements.recipe.addEventListener('click', e => {
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');
             recipeViews.updateServingsIngredients(state.recipe);
-        }
+        };
         
         // Increase button is clicked
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
@@ -200,7 +200,7 @@ elements.recipe.addEventListener('click', e => {
     } else if (e.target.matches('.recipe__love, .recipe__love *')) {
         //Like controller
         controlLike();
-    }
+    };
 });
 
 
