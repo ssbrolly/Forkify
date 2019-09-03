@@ -116,6 +116,7 @@ export const renderRecipe = (recipe, isLiked) => {
 };
 
 export const updateServingsIngredients = recipe => {
+    
     //Update serving
     document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
     //Update ingredient
