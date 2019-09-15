@@ -16,15 +16,7 @@ export default class Search {
         };
     };
 
-}
-
-
-
-
-
-
-
-
+};
 
 
 
