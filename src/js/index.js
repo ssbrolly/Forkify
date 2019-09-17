@@ -43,10 +43,8 @@ elements.searchResPages.addEventListener('click', e => {
         searchViews.clearFields();
         searchViews.renderResults(state.search.results, goToPage);
         console.log(goToPage);
-    }
-})
-
-
+    };
+});
 
 
 
