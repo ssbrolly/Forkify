@@ -1,5 +1,4 @@
 import { elements } from './base';
-import { create } from 'domain';
 
 export const getInput = () => elements.searchInput.value;
 
@@ -85,6 +84,12 @@ export const renderResults = (recipes, page= 1, resPerPage = 10) => {
     recipes.slice(start, end).forEach(el => renderRecipe(el));
     renderButtons(page, recipes.length, resPerPage);
 };
+
+
+
+
+
+
 
 
 
