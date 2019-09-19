@@ -50,14 +50,14 @@ export default class Recipe {
             const unitIndex = arrIng.findIndex(el2 => unitsShort.includes(el2));
 
             let objIng;
-            if (unitIndex > -1) {   
+            if (unitIndex > - 1) {   
                 // There is a unit
                 const arrCount = arrIng.slice(0, unitIndex);
                 let count;
                 if (arrCount.length === 1) {
                     count = eval(arrIng[0].replace('-', '+'));
                 } else {
-                    count  = eval(arrIng.slice(0, unitIndex).join('+'));
+                    count = eval(arrIng.slice(0, unitIndex).join('+'));
                 };
 
                 objIng = {
@@ -87,6 +87,9 @@ export default class Recipe {
         this.ingredients = newIngredients;
     }
 };
+
+
+
 
 
 
