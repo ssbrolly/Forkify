@@ -68,6 +68,10 @@ const controlRecipe = async () => {
         // Prepare UI for changes
         recipeViews.clearRecipe();
         renderLoader(elements.recipe);
+
+        // Highlinght the search item
+        if (state.search) searchViews.higlightSelected(id);
+
         // Create new Recipe object
         state.recipe = new Recipe(id);
 
@@ -91,9 +95,6 @@ const controlRecipe = async () => {
 };
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe))
-
-
-
 
 
 
