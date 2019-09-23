@@ -101,12 +101,13 @@ elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
         if (state.recipe.servings > 1){
             state.recipe.updateServings('dec');
+            recipeViews.updateServingsIngredients(state.recipe);        
         };
-        
+
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         state.recipe.updateServings('inc');
+        recipeViews.updateServingsIngredients(state.recipe);        
     };
-    console.log(state.recipe);
 });
 
 
