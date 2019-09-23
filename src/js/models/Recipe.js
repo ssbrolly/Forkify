@@ -160,7 +160,3 @@ export default class Recipe {
 
 
 
-
-
-
-

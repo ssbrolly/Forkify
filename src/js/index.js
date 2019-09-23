@@ -1,7 +1,9 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
+import List from './models/List';
 import * as searchViews from './views/searchViews';
 import * as recipeViews from './views/recipeViews';
+import * as listViews from './views/listViews';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /**Global State of the App;
@@ -11,6 +13,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
  * - likes recipes
  */
 const state = {};
+window.state = state;
 
 /**
  * SEARCH CONTROLLER
@@ -96,6 +99,43 @@ const controlRecipe = async () => {
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
+/**
+ * LIST CONTROLLER
+ */
+
+const controlList = () => {
+    // Create a new list If there is none yet
+
+    if (!state.list) state.list = new List();
+
+    // Add each ingredients to the list and UI
+    state.recipe.ingredients.forEach(el => {
+        const item = state.list.addItem(el.count, el.unit, el.ingredient);
+        listViews.renderItem(item);
+    });
+};
+
+// Handle delete and update is item events
+elements.shopping.addEventListener('click', e => {
+    // Get the id 
+    const id = e.target.closest('.shopping__item').dataset.itemid;    
+
+    // Handle the delete button
+    if (e.target.matches('.shopping__delete, .shopping__delete *')) {
+        // Delete from state
+        state.list.deleteItem(id);
+         
+        // Delete from UI
+        listViews.deleteItem(id);
+    };
+
+    // Update the count
+    if (e.target.matches('.shopping__count-value')) {
+        const val = parseFloat(e.target.value, 10);
+        state.list.updateCount(id, val); 
+    };
+});
+
 // Recipe button clicks 
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -107,10 +147,12 @@ elements.recipe.addEventListener('click', e => {
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         state.recipe.updateServings('inc');
         recipeViews.updateServingsIngredients(state.recipe);        
-    };
+
+    } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        controlList();
+    }; 
+    
 });
-
-
 
 
 

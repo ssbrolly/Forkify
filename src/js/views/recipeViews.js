@@ -82,15 +82,15 @@ export const renderRecipe = recipe => {
 
         <div class="recipe__ingredients">
             <ul class="recipe__ingredient-list">
-            ${recipe.ingredients.map(el => createIngerdient(el)).join('')}
-
-                <button class="btn-small recipe__btn">
-                    <svg class="search__icon">
-                        <use href="img/icons.svg#icon-shopping-cart"></use>
-                    </svg>
-                    <span>Add to shopping list</span>
-                </button>
+                ${recipe.ingredients.map(el => createIngerdient(el)).join('')}
             </ul>
+
+            <button class="btn-small recipe__btn recipe__btn--add">
+                <svg class="search__icon">
+                    <use href="img/icons.svg#icon-shopping-cart"></use>
+                </svg>
+                <span>Add to shopping list</span>
+            </button>
         </div>
 
         <div class="recipe__directions">
@@ -120,13 +120,6 @@ export const updateServingsIngredients = recipe => {
         el.textContent = formatCount(recipe.ingredients[i].count);
     });
 };
-
-
-
-
-
-
-
 
 
 
