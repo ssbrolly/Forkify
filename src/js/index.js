@@ -1,9 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchViews from './views/searchViews';
 import * as recipeViews from './views/recipeViews';
 import * as listViews from './views/listViews';
+import * as likesViews from './views/likesViews';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /**Global State of the App;
@@ -136,6 +138,41 @@ elements.shopping.addEventListener('click', e => {
     };
 });
 
+/**
+ * LIKES CONTROLLER
+ */
+
+const controlLike = () => {
+    if (!state.likes) state.likes = new Likes();
+    
+    const currentId = state.recipe.id;
+
+    if (!state.likes.isLiked(currentId)) {
+        // Add like to the state
+        const newLikes = state.likes.addLike(
+            currentId,
+            state.recipe.title,
+            state.recipe.author,
+            state.recipe.img,
+        );
+        likesViews.toggleLikeBtn(true);
+        // Toggle the like button
+        
+        // Add like to the UI list
+        console.log(state.likes)
+        
+    } else {
+        // Remove from the state
+        state.likes.deleteLike(currentId);
+
+        // Toggle the like button
+        likesViews.toggleLikeBtn(false);
+        
+        // Remove from the UI list
+        console.log(state.likes)
+    };
+};
+
 // Recipe button clicks 
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -143,14 +180,17 @@ elements.recipe.addEventListener('click', e => {
             state.recipe.updateServings('dec');
             recipeViews.updateServingsIngredients(state.recipe);        
         };
-
+        
     } else if (e.target.matches('.btn-increase, .btn-increase *')) {
         state.recipe.updateServings('inc');
         recipeViews.updateServingsIngredients(state.recipe);        
 
     } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add ingredients to shopping list
         controlList();
-    }; 
+    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        controlLike();
+    };
     
 });
 
