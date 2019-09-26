@@ -18,20 +18,19 @@ export const higlightSelected = id => {
         el.classList.remove('result__link--active');
     });
 
-    document.querySelector(`a[href="#${id}"]`).classList.add('result__link--active');
+    document.querySelector(`.results__link[href*="#${id}"]`).classList.add('result__link--active');
 };
 
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
-        if (title.includes('-')) {
-            const regex = /-/gi;
-            title = title.replace(regex, ' ');
-        };
+        const regex = /-/gi;
+        title = title.replace(regex, ' ');
+
         title.split(' ').reduce((acc, cur) => {
             if (acc + cur.length <= limit) {
                 newTitle.push(cur);
-            }
+            };
             return acc + cur.length;
         }, 0);
         return `${newTitle.join(' ')} ...`;

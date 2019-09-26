@@ -91,8 +91,12 @@ const controlRecipe = async () => {
 
             // Render recipe
             clearLoader();
-            recipeViews.renderRecipe(state.recipe);
+            recipeViews.renderRecipe(
+                state.recipe, 
+                state.likes.isLiked(id)
+            );
         } catch(error) {
+            console.log(error);
             alert('Something went wrong!');
         };
 
@@ -141,6 +145,9 @@ elements.shopping.addEventListener('click', e => {
 /**
  * LIKES CONTROLLER
  */
+// TESTING
+state.likes = new Likes();
+likesViews.toggleLikeMenu(state.likes.getNumLikes());
 
 const controlLike = () => {
     if (!state.likes) state.likes = new Likes();
@@ -159,7 +166,7 @@ const controlLike = () => {
         // Toggle the like button
         
         // Add like to the UI list
-        console.log(state.likes)
+        likesViews.renderLikes(newLikes);
         
     } else {
         // Remove from the state
@@ -169,8 +176,9 @@ const controlLike = () => {
         likesViews.toggleLikeBtn(false);
         
         // Remove from the UI list
-        console.log(state.likes)
+        likesViews.deleteLikes(currentId);
     };
+    likesViews.toggleLikeMenu(state.likes.getNumLikes());
 };
 
 // Recipe button clicks 
